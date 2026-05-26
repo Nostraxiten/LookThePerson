@@ -1,3 +1,4 @@
+
 # LookThePerson
 
 Real-time body and hand gesture detection for Windows using MediaPipe Tasks and OpenCV.
@@ -13,6 +14,8 @@ This project reads webcam input to render full-body pose landmarks, hand skeleto
 - Clap gesture changes the body tint color
 - Live position tracking with coordinate output
 - Fullscreen display with optional windowed mode
+
+- <img width="662" height="386" alt="Captura de pantalla 2026-05-26 130327" src="https://github.com/user-attachments/assets/ae0331fe-ac3e-4056-ae89-b33bfecfc9d9" />
 
 ## Requirements
 
