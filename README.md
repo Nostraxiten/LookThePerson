@@ -23,7 +23,7 @@ Lo que comenzó como un pequeño script para Windows se ha transformado en un si
 
 ---
 
-## 📸 Demostración de Interfaz
+##  Demostración de Interfaz
 
 <p align="center">
   <img width="800" alt="LookThePerson Interface Showcase" src="https://github.com/user-attachments/assets/ae0331fe-ac3e-4056-ae89-b33bfecfc9d9" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" />
@@ -31,7 +31,7 @@ Lo que comenzó como un pequeño script para Windows se ha transformado en un si
 
 ---
 
-## 🚀 Arquitectura y Flujo
+##  Arquitectura y Flujo
 
 ```mermaid
 graph TD
@@ -61,7 +61,7 @@ graph TD
 
 ---
 
-## 🛠️ Modelos de Inteligencia Artificial Integrados
+##  Modelos de Inteligencia Artificial Integrados
 
 La herramienta descarga automáticamente estos modelos en el primer arranque:
 
@@ -75,7 +75,7 @@ La herramienta descarga automáticamente estos modelos en el primer arranque:
 
 ---
 
-## ⌨️ Controles en Tiempo Real (Teclado)
+##  Controles en Tiempo Real (Teclado)
 
 Puedes activar y desactivar funciones al instante **mientras la cámara está encendida**:
 
@@ -95,7 +95,7 @@ Puedes activar y desactivar funciones al instante **mientras la cámara está en
 
 ---
 
-## 🤸 Gestos Físicos Mapeados
+##  Gestos Físicos Mapeados
 
 El sistema incluye detección algorítmica de múltiples estados corporales que interactúan directamente con el Sistema Operativo:
 
@@ -114,7 +114,7 @@ El sistema incluye detección algorítmica de múltiples estados corporales que 
 
 ---
 
-## ⚙️ Requisitos e Instalación
+##  Requisitos e Instalación
 
 ### Prerrequisitos Sistema
 * **Windows:** Windows 10/11.
@@ -140,7 +140,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🏃 Modo de Ejecución
+##  Modo de Ejecución
 
 Ejecuta el nuevo launcher principal:
 
@@ -160,18 +160,18 @@ python looktheperson.py
 
 ---
 
-## 📁 Estructura del Framework Expansivo
+##  Estructura del Framework Expansivo
 
 ```text
 LookThePerson/
-├── looktheperson.py          # 🚀 Launcher principal multiplataforma
+├── looktheperson.py          # Launcher principal multiplataforma
 ├── platforms/                # Abstracción del sistema (Windows/Linux)
 ├── models/                   # Wrappers de IA (Pose, Hands, Face, Objects)
 ├── gestures/                 # Lógica matemática de detección de gestos
 ├── actions/                  # Controladoras (Teclas, Macros, Grabación)
 ├── ui/                       # Renderizado (HUD, Grid, Night Mode)
-├── screenshots/              # 🖼️ Auto-generado al pulsar 'S'
-└── recordings/               # 🎥 Auto-generado al pulsar 'R'
+├── screenshots/              # Auto-generado al pulsar 'S'
+└── recordings/               # Auto-generado al pulsar 'R'
 ```
 
 ---
