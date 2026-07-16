@@ -5,4 +5,9 @@ __pycache__/
 *.pyd
 *.log
 *.task
+*.tflite
 .DS_Store
+recordings/
+screenshots/
+*.mp4
+*.avi

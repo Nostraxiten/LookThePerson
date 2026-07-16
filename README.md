@@ -1,143 +1,185 @@
 # LookThePerson
 
-> **Detección en tiempo real de gestos corporales y de manos para Windows usando MediaPipe Tasks y OpenCV**
+<div align="center">
+<pre>
+   __               _  __  _        ___                         
+  / /  ___   ___   | |/ / | |_     / _ \  ___  _ __  ___   ___  _ __ 
+ / /  / _ \ / _ \  | ' /  | __|   / /_)/ / _ \| '__|/ __| / _ \| '_ \
+/ /__| (_) | (_) | | . \  | |_   / ___/ |  __/| |   \__ \| (_) | | | |
+\____/\___/ \___/  |_|\_\  \__|  \/      \___||_|   |___/ \___/|_| |_|
+</pre>
+
+**Framework Avanzado de Control Multi-Plataforma por Visión Computarizada y Gestos**
 
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Platform Support](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-lightgrey.svg?style=for-the-badge&logo=windows)](https://www.microsoft.com/windows)
-[![MediaPipe](https://img.shields.io/badge/Model-MediaPipe%20Tasks-teal.svg?style=for-the-badge)](https://developers.google.com/mediapipe)
+[![Platform Support](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux-lightgrey.svg?style=for-the-badge&logo=linux)](https://www.linux.org/)
+[![MediaPipe](https://img.shields.io/badge/Models-MediaPipe%20Tasks-teal.svg?style=for-the-badge)](https://developers.google.com/mediapipe)
 [![OpenCV](https://img.shields.io/badge/Graphics-OpenCV-orange.svg?style=for-the-badge&logo=opencv)](https://opencv.org/)
 
----
-
-## Descripcion General
-
-**LookThePerson** es una aplicacion interactiva de vision por computadora diseñada exclusivamente para Windows. Utilizando la camara web del sistema, la aplicacion procesa en tiempo real los puntos de referencia corporales y de las manos para interactuar directamente con el sistema operativo Windows mediante gestos fisicos y comandos de teclado.
-
-El proyecto destaca por su capacidad de automatizacion inicial, descargando los modelos preentrenados de MediaPipe en su primer arranque, y su integracion nativa con las APIs del sistema operativo para simular entradas de usuario en aplicaciones cotidianas como la calculadora de Windows y el navegador web.
+</div>
 
 ---
 
-## Flujo de Trabajo de la Aplicacion
+## 👁️ Descripción General
+
+**LookThePerson** es un framework de visión por computadora que convierte tu cámara web en una interfaz de control en tiempo real. Utilizando hasta **5 modelos distintos de IA** (MediaPipe), el programa rastrea simultáneamente tu cuerpo, manos, rostro y objetos en el entorno.
+
+Lo que comenzó como un pequeño script para Windows se ha transformado en un sistema **cross-platform (Windows y Linux)** altamente interactivo. Permite activar funciones, cambiar modelos sobre la marcha y usar gestos físicos para controlar aplicaciones nativas, todo desde una interfaz HUD futurista sobrepuesta en tu cámara.
+
+---
+
+## 📸 Demostración de Interfaz
+
+<p align="center">
+  <img width="800" alt="LookThePerson Interface Showcase" src="https://github.com/user-attachments/assets/ae0331fe-ac3e-4056-ae89-b33bfecfc9d9" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" />
+</p>
+
+---
+
+## 🚀 Arquitectura y Flujo
 
 ```mermaid
 graph TD
-    A[Camara Web / Captura OpenCV] --> B[MediaPipe Landmarkers]
-    B --> C[Seguimiento de Pose]
-    B --> D[Seguimiento de Manos]
+    A[Cámara Web OpenCV] --> B{Launcher Multi-OS}
+    B -->|Windows| C1[ctypes, calc.exe, DSHOW]
+    B -->|Linux| C2[xdotool, subprocess, V4L2]
     
-    C & D --> E[Detector de Gestos]
+    C1 & C2 --> D[Motor de Modelos AI]
     
-    E --> F[Renderizado en Pantalla - OpenCV]
-    E --> G[Llamadas a la API de Windows]
+    D --> E1[Pose Landmarker]
+    D --> E2[Hand Landmarker]
+    D --> E3[Face Mesh 478-pt]
+    D --> E4[Face Detection]
+    D --> E5[Object Detection COCO]
     
-    G --> G1[Control de la Calculadora]
-    G --> G2[Navegacion Web]
+    E1 & E2 & E3 --> F[Detector de Gestos]
+    F -->|Clap, T-Pose, Squat| G1[Acciones Corporales]
+    F -->|Dedos, Paz, Puño| G2[Acciones de Manos]
+    F -->|Sonrisa, Guiño| G3[Expresiones Faciales]
+    
+    G1 & G2 & G3 --> H[Interacción con Sistema]
+    H --> I[Calculadora Nativa / YouTube / Teclado Virtual]
+    
+    D --> J[KeyHandler en Tiempo Real]
+    J --> K[HUD Rendering y Overlay]
 ```
 
 ---
 
-## Interfaz Visual
+## 🛠️ Modelos de Inteligencia Artificial Integrados
 
-<img width="662" height="386" alt="LookThePerson Interface Showcase" src="https://github.com/user-attachments/assets/ae0331fe-ac3e-4056-ae89-b33bfecfc9d9" />
+La herramienta descarga automáticamente estos modelos en el primer arranque:
 
----
-
-## Caracteristicas Principales
-
-*   **Seguimiento Corporal Completo:** Superposicion en tiempo real del esqueleto sobre la imagen del usuario y tintado dinamico mediante segmentacion.
-*   **Seguimiento Detallado de Manos:** Trazado de los 21 puntos de referencia (landmarks) en cada mano.
-*   **Descarga de Modelos Bajo Demanda:** Descarga e inicializacion automatica de los modelos de deteccion `pose_landmarker_full.task` y `hand_landmarker.task` en el primer uso.
-*   **Control Domestico mediante Gestos:** Interaccion con el sistema operativo simulando acciones como abrir, controlar o cerrar la calculadora de Windows y navegar por internet.
-*   **Visualizacion Adaptable:** Soporte para ejecucion en pantalla completa o en modo ventana estandar.
+| Modelo MediaPipe | Propósito | Características Extra |
+| :--- | :--- | :--- |
+| **Pose Landmarker** | Esqueleto corporal completo | Segmentación de silueta con tintado dinámico |
+| **Hand Landmarker** | Seguimiento de 21 puntos por mano | Conteo de dedos y reconocimiento de signos |
+| **Face Mesh** | Malla facial 3D de 478 puntos | Detección de expresiones y rastreo de iris/mirada |
+| **Face Detection** | Detección rápida de rostros | Bounding boxes y 6 puntos clave (ojos, nariz, boca) |
+| **Object Detection** | Reconocimiento de entorno | 80 clases COCO con colores categorizados |
 
 ---
 
-## Requisitos de Sistema
+## ⌨️ Controles en Tiempo Real (Teclado)
 
-*   **Sistema Operativo:** Windows 10 u 11 (requerido para las APIs nativas de integracion).
-*   **Hardware:** Camara web funcional y procesador adecuado para analisis de video en tiempo real.
-*   **Entorno:** Python 3.10 o superior.
+Puedes activar y desactivar funciones al instante **mientras la cámara está encendida**:
+
+> [!TIP]
+> **Modos de Configuración Rápida:** Usa los números del `1` al `4` para cambiar el perfil de los modelos activos de golpe (Ej: `1` = Todo activo, `4` = Solo Cara).
+
+| Tecla | Acción / Toggle | Tecla | Acción / Toggle |
+| :---: | :--- | :---: | :--- |
+| `M` | Alternar máscara de **Segmentación** corporal | `S` | Tomar **Screenshot** (Captura PNG) |
+| `F` | Activar/Desactivar **Face Mesh** overlay | `R` | Iniciar/Parar **Grabación de Video** |
+| `O` | Activar/Desactivar **Detección de Objetos** | `C` | Cambiar color del esqueleto (Random) |
+| `D` | Activar/Desactivar **Detección Rápida de Caras**| `X` | Bloquear/Desbloquear control de Calculadora |
+| `G` | Mostrar/Ocultar **Cuadrícula de Referencia** | `+ / -` | Ajustar confianza de detección de objetos |
+| `H` | Alternar el **Panel HUD de Ayuda** lateral | `1 - 4` | Cambiar Modos (Completo/Pose/Manos/Cara)|
+| `T` | Mostrar/Ocultar texto de **Telemetría** inferior | `Q / Esc` | **Salir** del programa de forma segura |
+| `N` | Activar/Desactivar **Modo Nocturno** (Inverso)| `B` | Ocultar/Mostrar **Bounding Boxes** |
 
 ---
 
-## Instalacion y Configuracion
+## 🤸 Gestos Físicos Mapeados
 
-### 1. Preparar el Entorno Virtual
-Se recomienda utilizar un entorno virtual para aislar las dependencias del proyecto:
+El sistema incluye detección algorítmica de múltiples estados corporales que interactúan directamente con el Sistema Operativo:
 
-```powershell
-# Crear el entorno virtual
+| Gesto Detectado | Categoría | Acción Ejecutada en el OS |
+| :--- | :--- | :--- |
+| **Brazos extendidos (T-Pose)** | Cuerpo | Abre la calculadora nativa del sistema (`calc.exe` o `gnome-calculator`) |
+| **Brazos cruzados al pecho** | Cuerpo | Cierra la calculadora activa |
+| **Ambas manos levantadas** | Cuerpo | Abre una nueva pestaña de YouTube en el navegador |
+| **Aplauso rápido** | Cuerpo | Cambia aleatoriamente el color del cuerpo |
+| **Manos abiertas (5 dedos x2)**| Manos | Limpia la pantalla de la calculadora (Envía `Escape`) |
+| **Conteo de dedos (1-4)** | Manos | Envía el número correspondiente a la calculadora |
+| **Puño cerrado (0 dedos)** | Manos | Envía el símbolo suma (`+`) a la calculadora |
+
+> [!NOTE]
+> Nuevos gestos disponibles en el motor (Squat, Tocarse la cabeza, Guiños, Sonrisas) están listos para ser mapeados a nuevas funciones en `looktheperson.py`.
+
+---
+
+## ⚙️ Requisitos e Instalación
+
+### Prerrequisitos Sistema
+* **Windows:** Windows 10/11.
+* **Linux:** Cualquier distro con X11/Wayland. Requiere `xdotool` para control de ventanas. (`sudo apt install xdotool`)
+* **Python:** 3.10+
+* **Cámara web funcional.**
+
+### Instalación
+
+```bash
+# Clonar el repo
+git clone https://github.com/nostraxiten/LookThePerson.git
+cd LookThePerson
+
+# Crear y activar entorno virtual (Recomendado)
 python -m venv .venv
+# En Windows: .venv\Scripts\activate
+# En Linux: source .venv/bin/activate
 
-# Activar el entorno virtual
-.\.venv\Scripts\activate
-```
-
-### 2. Instalar las Dependencias
-Una vez activado el entorno, instala los paquetes requeridos por el script:
-
-```powershell
+# Instalar dependencias
 pip install -r requirements.txt
 ```
 
-> [!NOTE]
-> Las dependencias principales declaradas en `requirements.txt` incluyen `opencv-python` y `mediapipe`.
-
 ---
 
-## Instrucciones de Uso
+## 🏃 Modo de Ejecución
 
-Ejecuta el script principal con la configuracion por defecto:
+Ejecuta el nuevo launcher principal:
 
-```powershell
-python hand.py
+```bash
+python looktheperson.py
 ```
 
-### Parametros de Linea de Comandos Disponibles
-Puedes personalizar el comportamiento del programa utilizando argumentos al arrancar la ejecucion:
+### Argumentos Opcionales
 
-| Argumento | Tipo | Valor por Defecto | Descripcion |
-| :--- | :---: | :---: | :--- |
-| `--camera` | Entero | `0` | Indice de la camara de captura. |
-| `--width` | Entero | `1280` | Ancho de resolucion solicitado para la captura. |
-| `--height` | Entero | `720` | Alto de resolucion solicitado para la captura. |
-| `--fps` | Entero | `30` | Fotogramas por segundo solicitados. |
-| `--windowed` | Flag | Desactivado | Inicia la visualizacion en modo ventana en lugar de pantalla completa. |
-| `--no-calculator` | Flag | Desactivado | Desactiva las acciones por gestos que controlan la calculadora. |
-
----
-
-## Mapa de Controles y Gestos
-
-### Comandos por Teclado
-
-*   `Q` o `Esc`: Finaliza de forma segura la ejecucion de la aplicacion.
-*   `X`: Bloquea o desbloquea temporalmente el control por gestos de la calculadora para evitar activaciones accidentales.
-
-### Interaccion por Gestos Corporales y de Manos
-
-| Gesto Detectado | Accion Ejecutada |
+| Comando | Descripción |
 | :--- | :--- |
-| **Aplauso rapido** | Cambia aleatoriamente el color del tintado de segmentacion corporal. |
-| **Brazos extendidos / abiertos** | Abre de forma automatica la Calculadora de Windows. |
-| **Brazos cruzados / cerrados** | Cierra la Calculadora de Windows. |
-| **Ambas manos extendidas** | Limpia la entrada o los valores activos de la calculadora. |
-| **Ambas manos levantadas** | Abre la plataforma de YouTube en el navegador predeterminado. |
+| `--windowed` | Lanza la aplicación en una ventana redimensionable (por defecto es pantalla completa). |
+| `--camera N` | Usa un índice de cámara diferente si tienes múltiples conectadas (Ej: `--camera 1`). |
+| `--no-calculator` | Inicia con el bloqueo de calculadora activado desde el principio. |
+| `--fps N` | Fuerza una tasa de refresco específica de captura. |
+| `--width N` / `--height N` | Fuerza una resolución de cámara específica. |
 
 ---
 
-## Notas Tecnicas de Implementacion
+## 📁 Estructura del Framework Expansivo
 
-*   **Descarga Automatica:** En su primera ejecucion, el script detectara la ausencia de los archivos de modelo en el directorio raiz y comenzara la descarga directa desde los servidores oficiales de Google MediaPipe. 
-*   **Versionamiento del Proyecto:** Debido al gran tamaño de los archivos `.task`, se recomienda no incluirlos en el control de versiones (Git) agregandolos al archivo `.gitignore` del proyecto.
-*   **Dependencia del Sistema:** La ejecucion de comandos nativos de la calculadora y llamadas al navegador de Windows estan diseñadas exclusivamente para las APIs del sistema operativo de Microsoft.
+```text
+LookThePerson/
+├── looktheperson.py          # 🚀 Launcher principal multiplataforma
+├── platforms/                # Abstracción del sistema (Windows/Linux)
+├── models/                   # Wrappers de IA (Pose, Hands, Face, Objects)
+├── gestures/                 # Lógica matemática de detección de gestos
+├── actions/                  # Controladoras (Teclas, Macros, Grabación)
+├── ui/                       # Renderizado (HUD, Grid, Night Mode)
+├── screenshots/              # 🖼️ Auto-generado al pulsar 'S'
+└── recordings/               # 🎥 Auto-generado al pulsar 'R'
+```
 
 ---
 
-## Archivos del Repositorio
-
-*   [hand.py](file:///c:/Users/nostraxiten/Downloads/readmes/hand.py): Script principal encargado de la captura, procesamiento y renderizado visual.
-*   `hand_landmarker.task`: Archivo de modelo para el reconocimiento y localizacion de manos (descargado automaticamente).
-*   `pose_landmarker_full.task`: Archivo de modelo para el reconocimiento de postura corporal completa (descargado automaticamente).
-*   `requirements.txt`: Archivo de texto que detalla las dependencias necesarias de Python.
-
+> [!WARNING]
+> **Privacidad Local:** El análisis de visión por computadora se ejecuta 100% de manera local y fuera de línea en tu CPU. No se transmite ningún frame a internet. Los modelos se descargan una sola vez desde los servidores de Google.
