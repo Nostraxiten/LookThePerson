@@ -1,13 +1,7 @@
 # LookThePerson
 
 <div align="center">
-<pre>
-  
-__              _  __  _        ___                         
-  / /  ___   ___   | |/ / | |_     / _ \  ___  _ __  ___   ___  _ __ 
- / /  / _ \ / _ \  | ' /  | __|   / /_)/ / _ \| '__|/ __| / _ \| '_ \
-/ /__| (_) | (_) | | . \  | |_   / ___/ |  __/| |   \__ \| (_) | | | |
-\____/\___/ \___/  |_|\_\  \__|  \/      \___||_|   |___/ \___/|_| |_|
+
 </pre>
 
 **Framework Avanzado de Control Multi-Plataforma por Visión Computarizada y Gestos**
