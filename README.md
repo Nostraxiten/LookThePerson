@@ -178,3 +178,4 @@ LookThePerson/
 
 > [!WARNING]
 > **Privacidad Local:** El análisis de visión por computadora se ejecuta 100% de manera local y fuera de línea en tu CPU. No se transmite ningún frame a internet. Los modelos se descargan una sola vez desde los servidores de Google.
+> 
