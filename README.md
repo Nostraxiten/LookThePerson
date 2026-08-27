@@ -11,6 +11,8 @@
 [![Modes](https://img.shields.io/badge/Modes-49-purple.svg?style=for-the-badge)](docs/FEATURES.md)
 [![Tests](https://img.shields.io/badge/Tests-1492-green.svg?style=for-the-badge)](tests/)
 
+<img width="638" height="637" alt="image" src="https://github.com/user-attachments/assets/7ed94766-9679-4689-9cd8-8be462bb009b" />
+
 </div>
 
 ---
