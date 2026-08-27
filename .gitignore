@@ -1,0 +1,31 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+.DS_Store
+
+# Downloaded model assets (fetched on first run)
+model_assets/
+*.task
+*.tflite
+
+# Generated output
+recordings/
+screenshots/
+gifs/
+sessions/
+backgrounds/
+*.mp4
+*.avi
+*.gif
+
+# Local configuration
+looktheperson.json
+
+# Tooling
+.pytest_cache/
+.coverage
+htmlcov/
