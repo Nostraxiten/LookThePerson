@@ -11,7 +11,7 @@
 [![Modes](https://img.shields.io/badge/Modes-49-purple.svg?style=for-the-badge)](docs/FEATURES.md)
 [![Tests](https://img.shields.io/badge/Tests-1492-green.svg?style=for-the-badge)](tests/)
 
-<img width="638" height="637" alt="Adobe Express - file" src="https://github.com/user-attachments/assets/1d1f8868-b9c5-4461-a223-755f1c23fe51" />
+<img width="638" height="637" alt="Captura de pantalla 2026-08-27 172725" src="https://github.com/user-attachments/assets/c63cb978-a24e-47f9-93df-ba3ca2a41097" />
 
 </div>
 
