@@ -309,6 +309,8 @@ tests, not an assumption.
 
 <div align="center">
 
-by **Nox** / [@nostraxiten](https://github.com/nostraxiten)
+## License
+
+MIT. See [LICENSE](LICENSE).
 
 </div>
